@@ -1,1 +1,2 @@
 1) git init --> To initialise local git repository
+2) git remote add origin <git-repo-path>
