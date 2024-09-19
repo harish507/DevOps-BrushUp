@@ -1,0 +1,1 @@
+1) git init --> To initialise local git repository
