@@ -1,2 +1,6 @@
 1) git init --> To initialise local git repository
 2) git remote add origin <git-repo-path>
+3) git clone --> Clones existing repository.
+4) git status --> Checks the status of files in working directory
+5) git add <file> or git add . --> Stages files for commit
+6) git stash --> Temporarly saves the changes that arent ready to be commit
