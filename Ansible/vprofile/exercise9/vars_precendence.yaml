@@ -1,0 +1,19 @@
+---
+- name: To check vars precedence
+  hosts: all
+  become: yes
+  gather_facts: False
+  vars:
+    USRNM: playuser
+    COMM: variable from playbook
+  tasks:
+  - name: create user
+    ansible.builtin.user:
+      name: "{{USRNM}}"
+      comment: "{{COMM}}"
+    register: dbout
+
+  - debug:
+      var: dbout.name
+  - debug:
+      var: dbout.comment
