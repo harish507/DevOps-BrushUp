@@ -1,0 +1,33 @@
+---
+- hosts: localhost
+  gather_facts: False
+  tasks:
+    - name: Create Key Pair
+      amazon.aws.ec2_key:
+        name: sample_keypair
+        region: ap-south-1
+      register: aws_ec2_key_pair
+
+        #- name: Store key
+        #debug:
+        #var: aws_ec2_key_pair 
+    - name: Copy Key
+      copy:
+        content: "{{aws_ec2_key_pair.key.private_key}}"
+        dest: ./sample_keypair.pem
+      when: aws_ec2_key_pair.changed
+
+    - name: start an ec2 instance
+      amazon.aws.ec2_instance:
+        name: "ansible-ec2"
+        key_name: "sample_keypair"
+        instance_type: t2.micro
+        security_group: default
+        image_id: ami-09b0a86a2c84101e1
+        region: ap-south-1
+        exact_count: 1
+        state: running
+        wait: true
+        tags:
+          Environment: Testing
+
